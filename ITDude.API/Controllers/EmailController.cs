@@ -1,5 +1,4 @@
 ﻿using FluentEmail.Core;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ITDude.API.Controllers
@@ -11,14 +10,24 @@ namespace ITDude.API.Controllers
         [HttpPost("SendEmail")]
         public async Task<IActionResult> SendSingleEmail([FromServices] IFluentEmail singleEmail)
         {
-            var email = singleEmail
-                .To("test@outlook.com")
+            Email.DefaultSender = singleEmail.Sender;
+            try
+            {
+                var email = await Email
+                .From("test@test.com")
+                .To("test@test.com", "TestUser")
                 .Subject("Test email")
-                .Body("This is a single email");
+                .Body("Sending email from .net application").SendAsync();
 
-            await email.SendAsync();
-
-            return Ok();
+                if (email.Successful)
+                    return Ok();
+                
+            }
+            catch(Exception ex)
+            {
+                // implement logging
+            }
+            return BadRequest();
         }
     }
 }
