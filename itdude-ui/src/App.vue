@@ -1,7 +1,9 @@
-<script setup></script>
+<script setup>
+import LayoutView from "./views/LayoutView.vue";
+</script>
 
 <template>
-  <RouterView />
+  <LayoutView></LayoutView>
 </template>
 
 <style></style>

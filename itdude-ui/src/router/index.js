@@ -1,13 +1,13 @@
 import { createRouter, createWebHistory } from "vue-router";
-import LayoutView from "../views/LayoutView.vue";
+import HabitView from "@/views/HabitView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: "/",
-      name: "layout",
-      component: LayoutView,
+      name: "habit",
+      component: HabitView,
     },
     // {
     //   path: "/about",
