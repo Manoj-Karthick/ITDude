@@ -1,6 +1,7 @@
 using ITDude.API.Interfaces;
 using ITDude.API.Models.Data;
 using ITDude.API.Repository;
+using Microsoft.EntityFrameworkCore;
 using System.Net.Mail;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,13 +9,14 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddDbContext<ITDudeDBContext>(options => 
+        options.UseSqlServer(builder.Configuration.GetConnectionString("ITDudeConnectionString")));
 builder.Services.AddFluentEmail("test@test.com").AddSmtpSender(()=>new SmtpClient("localhost") 
             { 
                 EnableSsl=false,
                 DeliveryMethod=SmtpDeliveryMethod.Network,
                 Port = 25
             });
-builder.Services.AddTransient<DapperDBContext>();
 builder.Services.AddTransient<IHabitService,HabitService>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

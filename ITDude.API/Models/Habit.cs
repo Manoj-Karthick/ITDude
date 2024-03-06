@@ -2,9 +2,12 @@
 {
     public class Habit
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string HabitName { get; set; }
+        public string? HabitGoal { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
+        public int RepeatId { get; set; }
+        public Repeat Repeat { get; set; }
     }
 }
